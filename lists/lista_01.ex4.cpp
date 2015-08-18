@@ -5,7 +5,7 @@
 #include <string>
 
 #define MAX 20
-#define INDEX 400
+#define INDEX 5
 
 using namespace std;
 
@@ -20,10 +20,9 @@ int search(int vector[], int element, int position){
 
 void preindex(int vector[], int index[]){
   int l = 0;
-  
   for(int i = 0; i<INDEX ; i++) {
-    index[i] = vector[l];
-    l += (MAX/INDEX);
+    index[i] = l;
+    l+=4;
   }
 }
 
@@ -34,12 +33,9 @@ void print(int vector[], int size){
 }
 
 int search_table(int vector[], int index[], int number) {
-	int i = 0;
-	while(number >= index[i] && i < INDEX){
-		i++;
-	} 
-	
-	return search(vector,number,index[i-1]);
+  int i = 0;
+  while(number>=index[i] && i<INDEX) i++;
+  return search(vector,number,index[i-1]);
 }
 
 int main(){
