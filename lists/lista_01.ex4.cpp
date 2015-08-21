@@ -2,7 +2,9 @@
 // código para uma busca sequencial com índice primário.
 
 #include <iostream>
+#include <sstream>
 #include <string>
+
 #define MAX 20
 #define INDEX 5
 
