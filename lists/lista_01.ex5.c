@@ -67,12 +67,12 @@ return 0;
 
 void menu() {
      printf("\n----------------Menu----------------\n");
-     printf("1. Enfileiramento\n"); 
-     printf("2. Desenfileiramento\n");
-     printf("3. Esvaziar fila\n");  
-     printf("4. Imprimir valores da fila\n");
-     printf("5. Busca valor na fila\n");
-     printf("6. sair\n");
+     printf("1. Insert number\n"); 
+     printf("2. Remove first number\n");
+     printf("3. Empty line\n");  
+     printf("4. Print elements\n");
+     printf("5. Search for a value\n");
+     printf("6. Exit\n");
      printf("\n--------------------------------------\n");
 }
 
@@ -115,10 +115,8 @@ Node  *binary_search(List *list, int key) {
 		if(midle->number ==  key){
 			return midle;
 		}else if(midle->number < key) {
-			puts("\ndireita");
 			begin = midle->next;			
 		}else {
-			puts("\nesquerda");
 			end = midle;
 		}
 	}
@@ -148,7 +146,7 @@ void enqueue(List *list)
     Node *temp = (Node *)malloc(sizeof(Node));
     temp->next = NULL;
     
-    printf("Informe um valor: \n");
+    printf("Enter a value: \n");
     scanf("%d", &temp->number);
 
     if(list->top == NULL)
@@ -181,7 +179,7 @@ void print_list(List *list)
         
     do {
 
-      printf("Número: %d\n", temp->number);
+      printf("Value: %d\n", temp->number);
       temp = temp->next;
     
     } while(temp != list->top);
@@ -215,7 +213,7 @@ void clear(List *list){
 	}while(node != list->top);
 
 
-    printf("A fila foi excluida com sucesso\n");
+    printf("Deleted succeeded!\n");
     free(list);
     list->top = list->tail = NULL;
 }

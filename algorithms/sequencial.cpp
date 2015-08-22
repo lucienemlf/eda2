@@ -37,7 +37,7 @@ void print_result(int result, int vector[], string type){
 int main(){
   int vector[MAX+1] = {23,12,53,73,11,2,45,27,8,33};
   int element = 0;
-  cout << "Insert you number: ";
+  cout << "Number to find: ";
   cin >> element;
   
   int result_default = search_default(vector,element);
