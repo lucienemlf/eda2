@@ -1,5 +1,5 @@
 // Com base no codigo da busca sequencial, evolua o
-// código para uma busca sequencial com índice primário.
+// codigo para uma busca sequencial com indice primario.
 
 #include <iostream>
 #include <sstream>
@@ -44,8 +44,8 @@ int search_table(int vector[], Index index[], int number) {
 void index_table(int vector[], Index index[]){
   int l = 0;
   for(int i = 0; i<INDEX ; i++) {
-    index[i].value = vector[l];            // Guarda a posição do numero pertencente ao vetor
-    index[i].position = l;         // Popula o posição dos valores no índice
+    index[i].value = vector[l];// Guarda a posicao do numero pertencente ao vetor
+    index[i].position = l;// Popula o posicao dos valores no indice
     l+=4;
   }
 }
@@ -67,7 +67,8 @@ void print_index(Index index[]) {
 int main(){
 
   Index index[INDEX];
-  int vector[MAX] = {1,3,12,23,46,67,87,99,120,150,160,177,182,203,230,254,311,313,369,389};
+  int vector[MAX] = {1,3,12,23,46,67,87,99,120,150,160,177,182,203,230,
+    254,311,313,369,389};
   int element = 0;
 
   index_table(vector,index);

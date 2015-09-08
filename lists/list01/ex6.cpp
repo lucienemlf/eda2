@@ -10,8 +10,7 @@ int binary_search(int vector[], int element, int min, int max){
   int result = -1;
   while(min<=max){
     // Modification to use interpol on binary search
-    //int mid = min + (max - min)*((element-vector[min])/(vector[max]-vector[min]));
-    int mid = (max-min)/2 + min;
+    int mid = min + (max - min)*((element-vector[min])/(vector[max]-vector[min]));
     if(vector[mid] == element){
       result = mid;
       break;

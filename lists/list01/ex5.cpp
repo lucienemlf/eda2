@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /*
-	Busca binária em lista circular
+	Busca binaria em lista circular
 */
 
 typedef struct node{

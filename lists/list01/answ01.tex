@@ -25,6 +25,7 @@
 
 \documentclass{article}
 
+\usepackage[utf8]{inputenc} % Inputec for portuguese
 \usepackage{fancyhdr} % Required for custom headers
 \usepackage{lastpage} % Required to determine the last page for the footer
 \usepackage{extramarks} % Required for headers and footers
@@ -33,8 +34,6 @@
 \usepackage{listings} % Required for insertion of code
 \usepackage{courier} % Required for the courier font
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-
-\usepackage[utf8]{inputenc}
 
 % Margins
 \topmargin=-0.45in
@@ -170,13 +169,19 @@
 \begin{document}
 
 \maketitle
-\newpage
 
 %----------------------------------------------------------------------------------------
 %	Exercicio 1
 %----------------------------------------------------------------------------------------
 
+\newpage
 \begin{homeworkProblem}
+
+O algoritmo a seguir representa a uma busca sequencial com a utilização de indexação primária.
+
+\cppcode{ex4}{Busca sequencial com indice primario}
+
+A indexação é feita com a criação de a struct index contendo a posição e o valor do indice. O tamanho do vetor de indexação é definido pelas constantes INDEX. A definição dos valores dos indices ocorrem de 4 em 4 do vetor de busca (função index\_table).
 
 \end{homeworkProblem}
 
@@ -185,7 +190,14 @@
 %	Exercicio 2
 %----------------------------------------------------------------------------------------
 
+\newpage
 \begin{homeworkProblem}
+
+O código abaixo foi desenvolvido apartir de uma estrutura de lista encadeada e modificado para lógica de lista circular com a implementação de busca binária.
+
+\cppcode{ex5}{Codigo de busca binaria em lista circular}
+
+A busca pelo meio da lista é dada pela função "find\_middle". A busca pelo meio é feito com a utilização de dois ponteiros: slow(inicia em um nó) e fast(inicia um nó a frente do slow). Ao percorrer a lista, a cada um passo do ponteiro slow, temos o ponteiro fast avançando duas casas. Quando o vetor é interiamente percorrido o ponteiro slow está na posição do meio.
 
 \end{homeworkProblem}
 
@@ -197,6 +209,7 @@
 
 % To have just one problem per page, simply put a \clearpage after each problem
 
+\newpage
 \begin{homeworkProblem}
 
 O código abaixo é uma versão modificada de um algoritmo de busca binária utilizando vetor. A alteração insere o método da interpolação (linha 13).
@@ -205,12 +218,13 @@ O código abaixo é uma versão modificada de um algoritmo de busca binária uti
 
 Com a execução do código com os casos de teste com vetores de tamanho: 10, 25, 50, 100, 500, 1000, 10000, 100000.
 
-\txtcode{ex6_in}{Input files for test cases}
+\txtcode{ex6_in}{Dados de entrata para os casos de teste}
 
-Após a execução do programa temos o tempo da busca em cada vetor.
+Após a execução do programa temos o tempo da busca em cada vetor, como demonstrado a seguir.
 
-\txtcode{ex6_out}{Output file for test cases}
+\txtcode{ex6_out}{Dados de saída para os casos de teste}
 
+        Ao executar os casos de testes em varios momentos, não se obteve uma variação significativa entre o tempo de execução entre os diferentes tipos de tamanho de vetores.
 
 \end{homeworkProblem}
 
