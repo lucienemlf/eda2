@@ -5,12 +5,18 @@
 
 using namespace std;
 
+// Generate radom number between TOP_RANGE and BOT_RANGE
+int random_num(){
+  srand(time(NULL));
+  int randm = rand() % TOP_RANGE + BOT_RANGE;
+  return randm;
+}
+
 // Alocates a random number on all vector
 void preconfig(int vector[], int max_size){
   srand (time(NULL)); // Initialize random seed
   for(int i=0 ; i<max_size ; i++){
-    int randm = rand() % TOP_RANGE + BOT_RANGE;
-    vector[i] = randm;
+    vector[i] = random_num();
   }
 }
 
