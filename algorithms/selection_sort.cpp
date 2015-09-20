@@ -10,7 +10,7 @@ void selection_sort(int vector[], int max_size){
         k = j;
       }
     }
-    swap(vector,i,k);
+    swap(vector[i],vector[k]);
   }
 }
 

@@ -15,7 +15,7 @@ void insertion_sort(int vector[], int max_size){
   int aux;
   for(int i = 1 ; i<max_size ; i++){
     for(int j = i ; j >= 1 && vector[j] < vector[j-1] ; j--){
-      swap(vector,j,j-1);
+      swap(vector[j],vector[j-1]);
     }
   }
 }

@@ -9,7 +9,7 @@ void bubble_sort(int vector[], int max_size){
     bool swapped = false;
     for(int j=max_size ; j>i ; j--){
       if(vector[j] < vector[j-1]){
-        swap(vector,j,j-1);
+        swap(vector[j],vector[j-1]);
         swapped = true;
       }
     }

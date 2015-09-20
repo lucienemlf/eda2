@@ -5,14 +5,6 @@
 
 using namespace std;
 
-// Only works with vector structure
-// Takes two positions for swaping
-void swap(int vector[], int pos_a, int pos_b){
-  int aux = vector[pos_a];
-  vector[pos_a] = vector[pos_b];
-  vector[pos_b] = aux;
-}
-
 // Alocates a random number on all vector
 void preconfig(int vector[], int max_size){
   srand (time(NULL)); // Initialize random seed
