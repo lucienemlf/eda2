@@ -25,5 +25,5 @@ void print_vector(int vector[], int max_size){
   for(int i=0 ; i<max_size ; i++){
     cout << vector[i] << " ";
   }
-  cout << endl << endl;
+  cout << endl;
 }

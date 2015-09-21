@@ -1,0 +1,40 @@
+Métodos de Busca
+  Sequencial:
+    - Sentinela
+    - Trazer pra frente
+    - Mover pra frente
+    - Indexação primária
+    - Indexação secundária
+    -- Marcando o que apaga
+    -- Refazendo
+  Binário:
+    - Interpolação
+
+Método de Ordenação
+  n²:
+    - Selection
+    - Insertion
+    - Bubble
+    - Shell
+  n*log(n):
+    - Bucket sort (2)
+    - Merge sort (2)
+    - Quick sort
+    - Heap sort (2)
+  n:
+    - counting sort
+    - radix
+    -- lsd
+    -- msd
+
+Código de Huffman
+
+Árvores de Balanceamento
+- AVL
+- B&R
+
+Prova:
+  Vetor (3) ordenação
+  Árvore
+  Huffman
+  Implementação
