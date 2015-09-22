@@ -1,8 +1,7 @@
 #include <iostream>
 using namespace std;
  
-int get_max(int array[], int size)
-{
+int get_max(int array[], int size){
     int max = array[0];
     for (int i = 1; i < size; i++){
         if (array[i] > max){
@@ -12,9 +11,8 @@ int get_max(int array[], int size)
     return max;
 }
  
-void count_sort(int array[], int size, int exp)
-{
-    int output[n];
+void count_sort(int array[], int size, int exp){
+    int output[size];
     int i, count[10] = {0};
  
     // Store count of occurrences in count[]
@@ -28,11 +26,10 @@ void count_sort(int array[], int size, int exp)
     }
  
     // Build the output array
-    for (i = size - 1; i >= 0; i--)
-    {
-        int position = count[ (array[i]/exp)%10 ];
-        output[ position- 1] = array[i];
-        count[ (array[i]/exp)%10 ]--;
+    for (i = size - 1; i >= 0; i--){
+        int position = count[(array[i]/exp)%10];
+        output[position-1] = array[i];
+        count[(array[i]/exp)%10]--;
     }
  
     for (i = 0; i < size; i++){
@@ -40,8 +37,7 @@ void count_sort(int array[], int size, int exp)
     }
 }
  
-void radix_sort(int array[], int size)
-{
+void radix_sort(int array[], int size){
     int max = get_max(array, size);
  
     // exp =  1, 10, 100 ...
@@ -50,21 +46,20 @@ void radix_sort(int array[], int size)
     }
 }
  
-void print(int array[], int size)
-{
+void print(int array[], int size){
     for (int i = 0; i < size; i++){
         cout << array[i] << " ";
     }
 }
  
-int main()
-{
+int main(){
     int array[] = {170, 45, 75, 90, 802, 24, 2, 66};
     int size = sizeof(array)/sizeof(array[0]);
-   
 
     print(array, size);
+    cout << endl;
     radix_sort(array, size);
     print(array, size);
+    cout << endl;
     return 0;
 }
