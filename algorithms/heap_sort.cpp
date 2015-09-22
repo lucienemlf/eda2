@@ -20,8 +20,9 @@ int right_child(int position);
 void build_heap();
 void heapfy(int vector[], int size, int position);
 void build_heap(int vector[]);
-void extract_max(int vector[]);
 void heap_sort(int vector[]);
+int extract_max(int vector[]);
+int get_max(int vector[], int dad);
 
 int main(){
 }
@@ -55,14 +56,17 @@ int get_max(int vector[], int dad){
 
 void build_heap(int vector[]){
   int size = sizeof(vector)/4;
-  for(int i = floor(size/2); i>=0 ; i--){
+  for(int i = floor(size/2); i>=0 ; i--)
     heapify(vector, i);
 }
 
-void extract_max(int vector[]){
+int extract_max(int vector[]){
   int size = sizeof(vector);
+  int max_int = vector[0];
 
   swap(vector[0], vector[size-1]);
+  vector = (int*)realloc(vector,sizeof(vector)-4);
+  return max_int;
 }
 
 void insert(int vector[], int element){
@@ -70,6 +74,8 @@ void insert(int vector[], int element){
   vector[size] = element;
   
   int position = (sizeof(vector)/4) - 1;
+  vector = (int*)realloc(vector,sizeof(vector)+4);
+
   int dad = parent(position);
   while(position>1 && vector[dad]<vector[position]){
     swap(vector[dad],vector[dad]);

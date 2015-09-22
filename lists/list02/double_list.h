@@ -54,7 +54,8 @@ void print_node(Node* node){
 void print_list_reverse(List* list){
   Node* print = list->last;
   while(print != NULL){
-    cout << "(" << print->key << ")"<< print->data << " ";
+    cout << print->data << " ";
+    //cout << "(" << print->key << ")"<< print->data << " ";
     print = print->prev;
   }
 }
@@ -62,7 +63,8 @@ void print_list_reverse(List* list){
 void print_list(List* list){
   Node* print = list->first;
   while(print != NULL){
-    cout << "(" << print->key << ")"<< print->data << " ";
+    cout << print->data << " ";
+    //cout << "(" << print->key << ")"<< print->data << " ";
     print = print->next;
   }
 }
