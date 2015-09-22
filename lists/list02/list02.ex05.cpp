@@ -15,40 +15,31 @@ void radomlist(List* list){
 }
 
 void swap(List* list, int fk, int sk){
-  Node* tmp = (Node*) malloc(sizeof(Node));
   Node* first = search(list,fk);
   Node* second = search(list,sk);
 
-  cout<< "=======================" << endl;
-  print_node(list->first);
-  print_node(list->last);
-  cout<< "=======================" << endl;
+  int key = first->key;
+  int data = first->data;
+  Node* prev = first->prev;
+  Node* next = first->next;
 
-  int key = second->key;
-  int data = second->data;
-  Node* prev = second->prev;
-  Node* next = second->next;
+  first->key = second->key;
+  first->data = second->data;
+  first->prev = second->prev;
+  first->next = second->next;
 
-  //if(second->next) second->next->prev = first;
-  //if(second->prev) second->prev->next = first;
+  second->key = key;
+  second->data = data;
+  second->prev = prev;
+  second->next = next;
 
-  //second->key = first->key;
-  second->data = first->data;
+  // Exchange
+  second->key = first->key;
+  first->key = key;
   second->prev = first->prev;
   second->next = first->next;
-
-  //first->key = key;
-  first->data = data;
-  first->next = second->next;
-  first->prev = second->prev;
-
-  //if(first->next) first->next->prev = second;
-  //if(first->prev) first->prev->next = second;
-
-  cout<< "=======================" << endl;
-  print_node(list->first);
-  print_node(list->last);
-  cout<< "=======================" << endl;
+  first->prev = prev;
+  first->next = next;
 }
 
 void quick_sort(List* list, int left, int right){
@@ -58,17 +49,13 @@ void quick_sort(List* list, int left, int right){
 
   int pivo = pivo_node->data;
 
-  cout << "while 1" << endl;
   while(i<=j){
-    cout << "while 2" << endl;
     while(search(list,i)->data < pivo && i < right){
       i++;
     }
-    cout << "while 3" << endl;
-    while(search(list,j)->data > pivo && j < right){
+    while(search(list,j)->data > pivo && j > left){
       j--;
     }
-    cout << "swp" << endl;
     if(i<=j){
       swap(list, i, j);
       i++;
