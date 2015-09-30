@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "heap.h"
 
 using namespace std;
 
@@ -81,7 +80,7 @@ void heapify(int array[], int i, int array_size) {
 }
 
 void insert_heap(int array[], int element, int size){
-	size++;   // Primeiro elemento começa na posição 1
+	size++;   // Primeiro elemento comeca na posicao 1
 	array[size] = element;
 	heapify_up(array, size);
 }

@@ -31,14 +31,6 @@ void print_heap(int array[], int array_size) {
 	cout << endl;
 }
 
-/* 
-   Coloca o maior elemento na ultima posição e 
-   realiza um heapify nos elementos restantes
-   fazendo com que o maior apareça na primeira 
-   posição novamente.
-*/
-
-
 void heap_sort(int array[], int array_size)
 {
 

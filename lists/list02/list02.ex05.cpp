@@ -4,7 +4,7 @@
 #include "double_list.h"
 #include "vector_preconfig.h"
 
-void radomlist(List* list){
+void create_list(List* list){
   insert(list,4);
   insert(list,6);
   insert(list,1);
@@ -69,7 +69,7 @@ void quick_sort(List* list, int left, int right){
 int main(){
   List* list = NULL;
   list = init();
-  radomlist(list);
+  create_list(list);
 
   print_list(list);
   cout << endl;
