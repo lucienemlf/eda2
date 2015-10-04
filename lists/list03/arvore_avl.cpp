@@ -32,7 +32,10 @@ int main (){
 				puts("Please inform the number to be deleted: ");
 				scanf("%d", &number);
 
-				//remove_leaf(tree->root, number);
+				tree->root = remove_leaf(tree->root, tree,  number);
+				printf("ROOOOOOOOOOOT >>> %d\n", tree->root->number);
+				update_balancing_factor_top_down(tree->root, tree);
+				printf("Balanceado >>> %d\n", tree->root->number);
 				break;
 			case 4:
 				puts("bye!");
