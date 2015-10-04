@@ -5,7 +5,7 @@
 
 void menu(){
 	puts("");
-	puts("1. Insert an number");
+	puts("1. Insert a number");
 	puts("2. Print numbers ordered");
 	puts("3. Delete leaf");
 	puts("4. Exit");
@@ -23,7 +23,10 @@ int main (){
 
 		switch(option){
 			case 1:
-				insert(tree);
+			    puts("Please enter a number: ");
+   				scanf("%d", &number);
+				
+				insert(tree, number);
 				break;
 			case 2:
 				in_order(tree->root);
@@ -33,9 +36,7 @@ int main (){
 				scanf("%d", &number);
 
 				tree->root = remove_leaf(tree->root, tree,  number);
-				printf("ROOOOOOOOOOOT >>> %d\n", tree->root->number);
 				update_balancing_factor_top_down(tree->root, tree);
-				printf("Balanceado >>> %d\n", tree->root->number);
 				break;
 			case 4:
 				puts("bye!");

@@ -21,6 +21,8 @@ void rotate_right_left(Leaf *root, Tree *tree);
 void rotate_left_right(Leaf *root, Tree *tree);
 void rotate_left(Leaf *root, Tree *tree);
 void rotate_right(Leaf *root, Tree *tree);
+void balancing_right(Leaf *leaf);
+void balancing_left(Leaf *leaf);
 void update_balancing_factor(Leaf *leaf, Tree *tree);
 void update_balancing_factor_top_down(Leaf *leaf, Tree *tree);
 Leaf *remove_leaf(Leaf *leaf, Tree *tree, int number);
@@ -29,11 +31,10 @@ int balancing_factor(Leaf *leaf);
 int insert(Tree *tree);
 
 
-Leaf *init() {
+Leaf *init(int number) {
     Leaf *new_leaf = (Leaf*)malloc(sizeof(Leaf));
 
-    puts("Please enter a number: ");
-    scanf("%d", &new_leaf->number);
+    new_leaf->number = number;
     new_leaf->balancing_factor = 0;
     new_leaf->right = NULL;
     new_leaf->left = NULL;
@@ -42,9 +43,9 @@ Leaf *init() {
     return new_leaf;
 }
 
-int insert(Tree *tree){
-    Leaf *leaf = init();      // New leaf
-    Leaf *father;             // Will receive the new leaf
+int insert(Tree *tree, int number){
+    Leaf *leaf = init(number);
+    Leaf *father;
     Leaf *runs = tree->root;  
 
 
@@ -77,7 +78,7 @@ int insert(Tree *tree){
         leaf->father = father;
     	update_balancing_factor(leaf, tree);
     }
-    
+
 }
 
 Leaf *remove_leaf(Leaf *leaf, Tree *tree, int number){
@@ -85,30 +86,24 @@ Leaf *remove_leaf(Leaf *leaf, Tree *tree, int number){
 	if(leaf == NULL){
 		return NULL;
 	}else if(number < leaf->number){
-printf("menor\n");
 		leaf->left = remove_leaf(leaf->left, tree, number);
 	}else if(number > leaf->number){
-printf("maior\n");
 		leaf->right = remove_leaf(leaf->right, tree, number);
 	}else{
 		if(leaf->left == NULL  && leaf->right == NULL){
-printf("Sem filhos\n");
 			free(leaf);
 			leaf = NULL;
 		}else if(leaf->right == NULL){
-printf("Sem filho direito\n");
 			Leaf *temp = leaf;
 			leaf = leaf->left;
 			leaf->father = temp->father;
 			free(temp);
 		}else if(leaf->left == NULL){
-printf("Sem filho esquerdo\n");
 			Leaf *temp = leaf;
 			leaf = leaf->right;
 			leaf->father = temp->father;
 			free(temp);
 		}else{
-printf("com dois filhos\n");
 			Leaf *temp = leaf->left;
 
 			// Acha o imediatamente menor
@@ -120,80 +115,58 @@ printf("com dois filhos\n");
 			temp->number = number;
 			leaf->left = remove_leaf(leaf->left, tree, number);
 		}	
-
 	}
-
 	return leaf;
 }
 
-// ----------------------- Balanceamento ---------------------------------------
+// ----------------------- Balanceamentos ---------------------------------------
+void balancing_left(Leaf *leaf, Tree *tree){
+	if(leaf->right->balancing_factor < 0){
+        rotate_right_left(leaf, tree);
+    }else{
+        rotate_left(leaf, tree);
+    }
+}
 
+void balancing_right(Leaf *leaf, Tree *tree){
+    if(leaf->left->balancing_factor > 0){
+        rotate_left_right(leaf, tree);
+    }else{
+        rotate_right(leaf, tree);
+    }	
+}
+
+// Recebe o número que foi inserido e sobe atualizando os fatores de balanceamento
 void update_balancing_factor(Leaf *leaf, Tree *tree){
-printf("\nupdate_balancing_factor\n");
 
-printf("Leaf: %d\n", leaf->number);
     leaf->balancing_factor = balancing_factor(leaf);
-if(leaf->right != NULL) printf("\nFilho direita de %d: %d\n", leaf->number, leaf->right->number);
-if(leaf->left != NULL) printf("\nFilho esquerda de %d: %d\n", leaf->number, leaf->left->number);
         
-
-
-
-printf("balancing_factor: %d\n", leaf->balancing_factor);
     if(leaf->balancing_factor == 2){
-        if(leaf->right->balancing_factor < 0){
-            rotate_right_left(leaf, tree);
-        }else{
-            rotate_left(leaf, tree);
-        }
+    	balancing_left(leaf, tree);
     }else if(leaf->balancing_factor == (-2)){
-        if(leaf->left->balancing_factor > 0){
-            rotate_left_right(leaf, tree);
-        }else{
-            rotate_right(leaf, tree);
-        }
+    	balancing_right(leaf, tree);
     }else if(leaf != tree->root){
         update_balancing_factor(leaf->father, tree);
     }
 }
 
-
-
+// Recebe a raiz e desce atualizando os fatores de balanceamento
 void update_balancing_factor_top_down(Leaf *leaf, Tree *tree){
 	leaf->balancing_factor = balancing_factor(leaf);
- printf("Leaf: %d\n", leaf->number);  
- printf("balancing_factor antes: %d\n", leaf->balancing_factor);  
   
-
     if(leaf->balancing_factor == 2){
-        if(leaf->right->balancing_factor < 0){
- printf("2\n");  
-            rotate_right_left(leaf, tree);
-        }else{
- printf("3\n");  
-            rotate_left(leaf, tree);
-        }
+    	balancing_left(leaf, tree);
     }else if(leaf->balancing_factor == (-2)){
-        if(leaf->left->balancing_factor > 0){
- printf("4\n");  
-            rotate_left_right(leaf, tree);
-        }else{
- printf("5\n");  
-            rotate_right(leaf, tree);
-        }
+    	balancing_right(leaf, tree);
     }
 
- printf("6\n");  
- printf("balancing_factor deppois: %d\n", leaf->balancing_factor);  
     leaf->balancing_factor = balancing_factor(leaf);
 
-    if(leaf->left != NULL){
- printf("7\n");  
+    if(leaf->left != NULL){ 
         update_balancing_factor_top_down(leaf->left, tree);
     }
 
-    if(leaf->right != NULL){
- printf("8\n");  
+    if(leaf->right != NULL){ 
         update_balancing_factor_top_down(leaf->right, tree);
     }
 }
@@ -220,7 +193,6 @@ int deep(Leaf *runs){
 
 // Pai vira filho direita
 void rotate_right(Leaf *root, Tree *tree) {
-																printf("\nRotate_right\n");
 
     Leaf *new_root;
     Leaf *temp;
@@ -247,39 +219,13 @@ void rotate_right(Leaf *root, Tree *tree) {
     root->father = new_root;
     root = new_root;
 
-										printf("\n Novo pai: %d\n", root->number);
-										printf("\n Pai do novo pai: %d\n", root->father->number);
-
-    if(root->left != NULL){
-										printf("\nFilho esquerda: %d\n", root->left->number);
-        if(root->left->left != NULL)
-										printf("\nFilho esquerda de %d: %d\n", root->left->number, root->left->left->number);
-        if(root->left->right != NULL)
-										printf("\nFilho direita de %d: %d\n", root->left->number, root->right->right->number);
-    }
-
-
-    if(root->right != NULL){
-										printf("\nFilho direita: %d\n", root->right->number);
-        if(root->right->left)
-										printf("\nFilho direita de %d: %d\n", root->right->number, root->right->left->number);
-        if(root->right->right)
-										printf("\nFilho direita de %d: %d\n", root->right->number, root->right->right->number);
-    }
-
-
-
     root->right->balancing_factor = balancing_factor(root->right);
     root->balancing_factor = balancing_factor(root);
-
-in_order(tree->root);
 }
 
 
 // O pai vira filho da esquerda
 void rotate_left(Leaf *root, Tree *tree) {
-	printf("\nRotate_left\n");
-	printf("Leaf: %d\n", root->number);
     Leaf *new_root;
     Leaf *temp;
 
@@ -289,7 +235,6 @@ void rotate_left(Leaf *root, Tree *tree) {
 
     if(root->right){
         root->right->father = root;
-    	printf("root->right->father: %d\n",   root->right->father->number);
     }
 
     new_root->left = root;
@@ -306,47 +251,16 @@ void rotate_left(Leaf *root, Tree *tree) {
     root->father = new_root;
     root = new_root;
 
-	printf("\n Novo pai: %d\n", root->number);
-printf("\n Pai do novo pai: %d\n", root->father->number);
-
-    if(root->left != NULL){
-											printf("\nFilho esquerda: %d\n", root->left->number);
-        if(root->left->left != NULL){
-				printf("\nFilho esquerda de %d: %d\n", root->left->number, root->left->left->number);
-        }
-        printf("e\n");
-        if(root->left->right != NULL){
-			printf("\nFilho direita de %d: %d\n", root->left->number, root->left->right->number);
-        }else{
-        	printf("temp não funcionando\n");
-        }
-    }
-
-
-    if(root->right != NULL){
-											printf("\nFilho direita: %d\n", root->right->number);
-        if(root->right->left){
-											printf("\nFilho direita de %d: %d\n", root->right->number, root->right->left->number);
-        }
-        if(root->right->right){
-											printf("\nFilho direita de %d: %d\n", root->right->number, root->right->right->number);
-        }
-    }
-
-    printf("fim rotate_left\n");
     root->left->balancing_factor = balancing_factor(root->left);
     root->balancing_factor = balancing_factor(new_root);
-in_order(tree->root);
 }
 
 void rotate_left_right(Leaf *root, Tree *tree){
-printf("\nRotate_left_right\n");
     rotate_left(root->left, tree);
     rotate_right(root, tree);
 }
 
 void rotate_right_left(Leaf *root, Tree *tree){
-printf("\nROTATE_RIGHT_LEFT");
     rotate_right(root->right, tree);
     rotate_left(root, tree);
 }
@@ -362,36 +276,4 @@ void in_order(Leaf *leaf){
 		printf("  Balanceamento: %d\n", leaf->balancing_factor);
         in_order(leaf->right);
     }
-}
-
-void pre_order(Leaf *leaf){
-    if(leaf != NULL){
-        printf("%d (%d), ", leaf->number, leaf->balancing_factor);
-        pre_order(leaf->left);
-        pre_order(leaf->right);
-    }
-}
-
-void pos_order(Leaf *leaf){
-    if(leaf != NULL){
-        pos_order(leaf->right);
-        printf("%d (%d), ", leaf->number, leaf->balancing_factor);
-        pos_order(leaf->left);
-    }
-}
-
-
-
-Leaf *search(Leaf *leaf, int number){
-
-	if(leaf->number == number){
-		return leaf;
-	}else if(number < leaf->number){
-		search(leaf->left, number);
-	}else if(number > leaf->number){
-		search(leaf->right, number);
-	}else{
-		return NULL;
-	}
-	
 }
