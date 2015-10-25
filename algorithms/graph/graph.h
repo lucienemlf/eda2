@@ -1,48 +1,43 @@
-/**
-  Simples direct graph
-*/
+typedef enum {UNDIRECTED=0, DIRECTED} Type;
 
-typedef struct graph *Graph;
+/* Adjacent list node */
+typedef struct adjlist_node{
+  int vertex; // index to adjacent list array
+  struct adjlist_node* next; // pointer to the next node
+}AdjNode;
 
-/**
-  Create a new graph with 'n' vertices labeled 0..(n-1)
-  and no edges
-*/
-Graph graph_create(int n);
+/* Adjacent list */
+typedef struct adjlist{
+  int num_members;
+  AdjNode *head;
+}AdjList;
 
-/**
-  Free all space used by graph
-*/
-void graph_destroy(Graph);
+/* Graph struct */
+typedef struct graph{
+  Type type;
+  int num_vertices;
+  AdjList* adjlist_arr;
+}Graph;
 
-/**
-  Add an edge to an existing graph
-  Doing this more than once may have unpredictable
-    results
-*/
-void graph_add_edge(Graph, int source, int sink);
+/* Exit function to handle fatal erros */
+__inline void err_exit(char* msg){
+  printf("[Fatal Error]: %s \nExiting...\n", msg);
+  exit(1);
+}
 
-/**
-  Return the number of vertices/edges in the graph
-*/
-int graph_vertex_count(Graph);
-int graph_edge_count(Graph);
+/* Function to create an adjacency list node */
+AdjNode* create_node(int vertex);
 
-/**
-  Return the out-degree of the vertex
-*/
-int graph_out_degree(Graph, int source);
+/* Function to create a graph with n vertices
+   Creates both directed and undirected */
+Graph* create_graph(int num_vertices, Type type);
 
-/**
-  Return 1 if edge (source,sink) exists, 0 otherwise
-*/
-int graph_has_edge(Graph,int source, int sink);
+/* Destroy the graph */
+void destroy_graph(Graph* graph);
 
-/**
-  Invoke 'f' on all edges (u,v) with source 'u'
-  Supplying data as final parameter to 'f'
-  No particular order is guaranteed
-*/
-void graph_foreach(Graph g, int source,
-  void (*f)(Graph g, int source, int sink, void *data),
-  void *data);
+/* Add a edge to a graph */
+void add_edge(Graph* graph, int src, int dest);
+
+/* Function to print the adjacency list of graph */
+void display_graph(Graph* graph);
+
