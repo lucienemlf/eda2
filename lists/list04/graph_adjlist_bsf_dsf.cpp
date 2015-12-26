@@ -1,3 +1,7 @@
+/**
+Maria Luciene Felix   12/0037742
+Paulo Tada            11/0135431
+*/
 #include <iostream>
 #include <stdio.h>
 #include <cstring>
@@ -134,7 +138,7 @@ int main(){
 				  graph[destiny].push_back(origin);
 					cout << "Do you want to insert another node S/N? " << endl;
 					cin >> add_edge;
-					if(add_edge == 'n' || add_edge == 'S' ) break;
+					if(add_edge == 'n' || add_edge == 'N' ) break;
 				}
 				if(!count) cout << "The graph is full" << endl;	
 				break;}
